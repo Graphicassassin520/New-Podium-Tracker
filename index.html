@@ -24,21 +24,39 @@
   <div class="container">
     <h1>Podium Speaker Tracker</h1>
     <form id="entryForm">
+      <!-- Podium Speaker (Radio Buttons) -->
       <div class="form-group">
-        <label for="speakerName">Speaker Name</label>
-        <input type="text" id="speakerName" name="speakerName" placeholder="Enter speaker name" required />
+        <label>Podium Speaker</label>
+        <div class="radio-group">
+          <label>
+            <input type="radio" name="podiumSpeaker" value="Jeff Pruitt" required>
+            Jeff Pruitt
+          </label>
+          <label>
+            <input type="radio" name="podiumSpeaker" value="Tami Tarver" required>
+            Tami Tarver
+          </label>
+        </div>
       </div>
 
+      <!-- Time Slot (Single-Select Dropdown) -->
       <div class="form-group">
-        <label for="topic">Topic</label>
-        <input type="text" id="topic" name="topic" placeholder="Enter topic" required />
+        <label for="timeSlot">Time Slot</label>
+        <select id="timeSlot" name="timeSlot" required>
+          <option value="">Select a Time Slot</option>
+          <option value="9am">9am</option>
+          <option value="12pm">12pm</option>
+          <option value="2:30pm">2:30pm</option>
+        </select>
       </div>
 
+      <!-- Date Field -->
       <div class="form-group">
         <label for="date">Date</label>
         <input type="date" id="date" name="date" required />
       </div>
 
+      <!-- Sales Reps (Multi-Select) -->
       <div class="form-group">
         <label for="salesReps">Sales Reps</label>
         <select id="salesReps" name="salesReps" multiple required>
@@ -70,8 +88,8 @@
       <table id="entriesTable">
         <thead>
           <tr>
-            <th>Speaker Name</th>
-            <th>Topic</th>
+            <th>Podium Speaker</th>
+            <th>Time Slot</th>
             <th>Date</th>
             <th>Sales Reps</th>
           </tr>

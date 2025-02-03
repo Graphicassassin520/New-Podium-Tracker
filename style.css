@@ -63,6 +63,18 @@ form {
   border-radius: 4px;
 }
 
+/* Radio group styling */
+.radio-group {
+  display: flex;
+  gap: 20px;
+}
+
+.radio-group label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
 /* Button styling */
 form button {
   width: 100%;

@@ -83,12 +83,13 @@
       <button type="submit" id="submitBtn">Submit Entry</button>
     </form>
     
-    <!-- Table header is renamed to "Podiums" -->
+    <!-- Table header renamed to "Podiums" with an extra Select column -->
     <h2>Podiums</h2>
     <div class="table-responsive">
       <table id="entriesTable">
         <thead>
           <tr>
+            <th>Select</th>
             <th>Podium Speaker</th>
             <th>Time Slot</th>
             <th>Date</th>
@@ -101,6 +102,8 @@
         </tbody>
       </table>
     </div>
+    <!-- Button to print selected entries -->
+    <button id="printSelectedBtn">Print Selected</button>
   </div>
 
   <!-- JavaScript File -->

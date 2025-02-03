@@ -1,8 +1,22 @@
 // script.js
+
+// Helper function to format the date as "Monday Feb. 3, 2025"
+function formatDate(dateStr) {
+  const dateObj = new Date(dateStr);
+  const weekday = dateObj.toLocaleDateString('en-US', { weekday: 'long' });
+  const month = dateObj.toLocaleDateString('en-US', { month: 'short' });
+  const day = dateObj.getDate();
+  const year = dateObj.getFullYear();
+  // Ensure the month abbreviation ends with a period.
+  const monthWithPeriod = month.endsWith('.') ? month : month + '.';
+  return `${weekday} ${monthWithPeriod} ${day}, ${year}`;
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   const form = document.getElementById('entryForm');
   const entriesTableBody = document.querySelector('#entriesTable tbody');
   const submitBtn = document.getElementById('submitBtn');
+  const printSelectedBtn = document.getElementById('printSelectedBtn');
 
   // Load existing entries from localStorage, or start with an empty array.
   let entries = JSON.parse(localStorage.getItem('podiumEntries')) || [];
@@ -60,9 +74,12 @@ document.addEventListener('DOMContentLoaded', function() {
     entries.forEach((entry, index) => {
       const row = document.createElement('tr');
       row.innerHTML = `
+        <td>
+          <input type="checkbox" class="selectEntry" data-index="${index}">
+        </td>
         <td>${entry.podiumSpeaker}</td>
         <td>${entry.timeSlot}</td>
-        <td>${entry.date}</td>
+        <td>${formatDate(entry.date)}</td>
         <td>${entry.salesReps.join(', ')}</td>
         <td>
           <button class="action-btn edit-btn" onclick="editEntry(${index})">Edit</button>
@@ -106,22 +123,71 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   };
 
-  // (Optional) You can add an EmailJS call in a similar fashion as before
-  // to send an email notification when an entry is added/updated.
-  function sendEmailNotification(entry) {
-    const templateParams = {
-      podium_speaker: entry.podiumSpeaker,
-      time_slot: entry.timeSlot,
-      date: entry.date,
-      sales_reps: entry.salesReps.join(', ')
-    };
+  // Print Selected Entries
+  printSelectedBtn.addEventListener("click", printSelectedEntries);
 
-    // Replace with your EmailJS service and template IDs
-    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
-      .then(function(response) {
-        console.log('Email sent successfully!', response.status, response.text);
-      }, function(error) {
-        console.error('Failed to send email:', error);
-      });
+  function printSelectedEntries() {
+    const selectedCheckboxes = document.querySelectorAll('.selectEntry:checked');
+    if (selectedCheckboxes.length === 0) {
+      alert("No entries selected for printing.");
+      return;
+    }
+    let selectedEntries = [];
+    selectedCheckboxes.forEach(checkbox => {
+      const index = checkbox.getAttribute('data-index');
+      selectedEntries.push(entries[index]);
+    });
+    
+    // Build HTML for a printer-friendly list
+    let htmlContent = `
+      <html>
+      <head>
+        <title>Print Podiums</title>
+        <style>
+          body { font-family: 'Roboto', sans-serif; margin: 20px; }
+          h1 { text-align: center; }
+          table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+          th, td { border: 1px solid #333; padding: 8px; text-align: left; }
+          th { background-color: #4285F4; color: #fff; }
+        </style>
+      </head>
+      <body>
+        <h1>Selected Podiums</h1>
+        <table>
+          <thead>
+            <tr>
+              <th>Podium Speaker</th>
+              <th>Time Slot</th>
+              <th>Date</th>
+              <th>Sales Reps</th>
+            </tr>
+          </thead>
+          <tbody>`;
+    
+    selectedEntries.forEach(entry => {
+      htmlContent += `
+            <tr>
+              <td>${entry.podiumSpeaker}</td>
+              <td>${entry.timeSlot}</td>
+              <td>${formatDate(entry.date)}</td>
+              <td>${entry.salesReps.join(', ')}</td>
+            </tr>`;
+    });
+    
+    htmlContent += `
+          </tbody>
+        </table>
+      </body>
+      </html>`;
+    
+    // Open a new window for printing
+    const printWindow = window.open('', '', 'height=600,width=800');
+    printWindow.document.write(htmlContent);
+    printWindow.document.close();
+    printWindow.focus();
+    printWindow.print();
+    printWindow.close();
   }
+
+  // (Optional) You can add an EmailJS call here to send notifications on add/update.
 });

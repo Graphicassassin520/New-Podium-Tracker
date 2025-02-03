@@ -3,24 +3,28 @@ document.addEventListener('DOMContentLoaded', function() {
   const form = document.getElementById('entryForm');
   const entriesTableBody = document.querySelector('#entriesTable tbody');
 
-  // Load existing entries from localStorage, or start with an empty array.
+  // Load existing entries from localStorage or initialize an empty array.
   let entries = JSON.parse(localStorage.getItem('podiumEntries')) || [];
   renderEntries();
 
   form.addEventListener('submit', function(event) {
     event.preventDefault();
 
-    // Retrieve form values
-    const speakerName = document.getElementById('speakerName').value;
-    const topic = document.getElementById('topic').value;
+    // Retrieve form values:
+    // Get selected Podium Speaker (radio button)
+    const podiumSpeaker = document.querySelector('input[name="podiumSpeaker"]:checked').value;
+    // Get selected Time Slot
+    const timeSlot = document.getElementById('timeSlot').value;
+    // Get Date value
     const date = document.getElementById('date').value;
+    // Get selected Sales Reps (multiple selection)
     const salesRepsSelect = document.getElementById('salesReps');
     const salesReps = Array.from(salesRepsSelect.selectedOptions).map(option => option.value);
 
-    // Create a new entry object
+    // Create an entry object
     const entry = {
-      speakerName,
-      topic,
+      podiumSpeaker,
+      timeSlot,
       date,
       salesReps
     };
@@ -51,8 +55,8 @@ document.addEventListener('DOMContentLoaded', function() {
   function addEntryToTable(entry) {
     const row = document.createElement('tr');
     row.innerHTML = `
-      <td>${entry.speakerName}</td>
-      <td>${entry.topic}</td>
+      <td>${entry.podiumSpeaker}</td>
+      <td>${entry.timeSlot}</td>
       <td>${entry.date}</td>
       <td>${entry.salesReps.join(', ')}</td>
     `;
@@ -63,8 +67,8 @@ document.addEventListener('DOMContentLoaded', function() {
   function sendEmailNotification(entry) {
     // Set up the parameters according to your EmailJS email template
     const templateParams = {
-      speaker_name: entry.speakerName,
-      topic: entry.topic,
+      podium_speaker: entry.podiumSpeaker,
+      time_slot: entry.timeSlot,
       date: entry.date,
       sales_reps: entry.salesReps.join(', ')
     };

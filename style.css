@@ -89,7 +89,8 @@ form {
 }
 
 /* Button styling */
-form button {
+form button,
+#printSelectedBtn {
   width: 100%;
   padding: 12px;
   font-size: 18px;
@@ -102,13 +103,15 @@ form button {
   margin-top: 10px;
 }
 
-form button:hover {
+form button:hover,
+#printSelectedBtn:hover {
   background-color: var(--secondary-color);
 }
 
 /* Table styling */
 .table-responsive {
   overflow-x: auto;
+  margin-bottom: 15px;
 }
 
 table {
@@ -160,7 +163,8 @@ table th {
     padding: 10px;
   }
 
-  form button {
+  form button,
+  #printSelectedBtn {
     font-size: 16px;
     padding: 10px;
   }

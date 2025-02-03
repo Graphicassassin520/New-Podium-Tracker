@@ -38,7 +38,7 @@
           </label>
         </div>
       </div>
-
+      
       <!-- Time Slot (Single-Select Dropdown) -->
       <div class="form-group">
         <label for="timeSlot">Time Slot</label>
@@ -49,41 +49,42 @@
           <option value="2:30pm">2:30pm</option>
         </select>
       </div>
-
+      
       <!-- Date Field -->
       <div class="form-group">
         <label for="date">Date</label>
         <input type="date" id="date" name="date" required />
       </div>
-
-      <!-- Sales Reps (Multi-Select) -->
+      
+      <!-- Sales Reps (Checkboxes) -->
       <div class="form-group">
-        <label for="salesReps">Sales Reps</label>
-        <select id="salesReps" name="salesReps" multiple required>
-          <option value="Steve Palumbo">Steve Palumbo</option>
-          <option value="Chuck Luttenbacher">Chuck Luttenbacher</option>
-          <option value="Michael Perryman">Michael Perryman</option>
-          <option value="Charles 'Rudi' Gustin">Charles "Rudi" Gustin</option>
-          <option value="Anthony Jeanette">Anthony Jeanette</option>
-          <option value="Heather St John">Heather St John</option>
-          <option value="Steve McGuire">Steve McGuire</option>
-          <option value="John Cassata">John Cassata</option>
-          <option value="Kevin Gulley">Kevin Gulley</option>
-          <option value="April Hambry">April Hambry</option>
-          <option value="John Pozza">John Pozza</option>
-          <option value="Michael Panameno">Michael Panameno</option>
-          <option value="JT Queipo">JT Queipo</option>
-          <option value="Shiva Laloo">Shiva Laloo</option>
-          <option value="Laney Cobb">Laney Cobb</option>
-          <option value="Ronnie Campbell">Ronnie Campbell</option>
-          <option value="Mary Ann Wilson">Mary Ann Wilson</option>
-        </select>
+        <label>Sales Reps</label>
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="salesReps" value="Steve Palumbo"> Steve Palumbo</label>
+          <label><input type="checkbox" name="salesReps" value="Chuck Luttenbacher"> Chuck Luttenbacher</label>
+          <label><input type="checkbox" name="salesReps" value="Michael Perryman"> Michael Perryman</label>
+          <label><input type="checkbox" name="salesReps" value="Charles 'Rudi' Gustin"> Charles "Rudi" Gustin</label>
+          <label><input type="checkbox" name="salesReps" value="Anthony Jeanette"> Anthony Jeanette</label>
+          <label><input type="checkbox" name="salesReps" value="Heather St John"> Heather St John</label>
+          <label><input type="checkbox" name="salesReps" value="Steve McGuire"> Steve McGuire</label>
+          <label><input type="checkbox" name="salesReps" value="John Cassata"> John Cassata</label>
+          <label><input type="checkbox" name="salesReps" value="Kevin Gulley"> Kevin Gulley</label>
+          <label><input type="checkbox" name="salesReps" value="April Hambry"> April Hambry</label>
+          <label><input type="checkbox" name="salesReps" value="John Pozza"> John Pozza</label>
+          <label><input type="checkbox" name="salesReps" value="Michael Panameno"> Michael Panameno</label>
+          <label><input type="checkbox" name="salesReps" value="JT Queipo"> JT Queipo</label>
+          <label><input type="checkbox" name="salesReps" value="Shiva Laloo"> Shiva Laloo</label>
+          <label><input type="checkbox" name="salesReps" value="Laney Cobb"> Laney Cobb</label>
+          <label><input type="checkbox" name="salesReps" value="Ronnie Campbell"> Ronnie Campbell</label>
+          <label><input type="checkbox" name="salesReps" value="Mary Ann Wilson"> Mary Ann Wilson</label>
+        </div>
       </div>
-
-      <button type="submit">Submit Entry</button>
+      
+      <button type="submit" id="submitBtn">Submit Entry</button>
     </form>
-
-    <h2>Submitted Entries</h2>
+    
+    <!-- Table header is renamed to "Podiums" -->
+    <h2>Podiums</h2>
     <div class="table-responsive">
       <table id="entriesTable">
         <thead>
@@ -92,10 +93,11 @@
             <th>Time Slot</th>
             <th>Date</th>
             <th>Sales Reps</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          <!-- Entries will be dynamically added here -->
+          <!-- Podium entries will be inserted here dynamically -->
         </tbody>
       </table>
     </div>
